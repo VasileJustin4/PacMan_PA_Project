@@ -1,25 +1,55 @@
 #include <stdio.h>
 #include "raylib.h"
 
-int main(void) {
+int velocity_x = 6;
+int velocity_y = 6;
 
+void drawPacMan(Texture2D player, int x, int y);
+void updatePosition(int *x, int *y);
+
+int main(void) {
     const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenHeight = 800;
+
+    int x = 400;
+    int y = 400;
 
     InitWindow(screenWidth, screenHeight, "PacMan");
-
     SetTargetFPS(60);
 
-    while (!WindowShouldClose() || IsKeyDown(KEY_ESCAPE)) {
+    Texture2D player = LoadTexture("pacman.png");
+
+    while (!WindowShouldClose() && !IsKeyDown(KEY_ESCAPE)) {
+
+        updatePosition(&x,&y);
 
         BeginDrawing();
-
         ClearBackground(BLACK);
-
+        drawPacMan(player, x, y);
         EndDrawing();
     }
 
+    UnloadTexture(player);
     CloseWindow();
 
     return 0;
+}
+
+void drawPacMan(Texture2D player, int x, int y) {
+    DrawTextureV(player, (Vector2){x, y}, WHITE);
+}
+
+void updatePosition(int *x, int *y) {
+    if (IsKeyDown(KEY_UP)) {
+        *y -= velocity_y;
+    }
+    if (IsKeyDown(KEY_DOWN)) {
+        *y += velocity_y;
+    }
+    if (IsKeyDown(KEY_RIGHT)) {
+        *x += velocity_x;
+    }
+    if (IsKeyDown(KEY_LEFT)) {
+        *x -= velocity_x;
+    }
 }
