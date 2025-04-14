@@ -92,7 +92,5 @@ void updatePosition(int *x, int *y, DIRECTION *direction) {
     else if (IsKeyDown(KEY_LEFT)) {
         *x -= velocity_x;
         *direction = LEFT;
-    } else {
-        *direction = IDLE;
     }
 }
