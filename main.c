@@ -17,7 +17,8 @@ int main(void) {
     InitWindow(screenWidth, screenHeight, "PacMan");
     SetTargetFPS(60);
 
-    Texture2D player = LoadTexture("pacman.png");
+    Texture2D playerNarrow = LoadTexture("pacman.png");
+    Texture2D playerWide = LoadTexture("pacman2.png");
 
     while (!WindowShouldClose() && !IsKeyDown(KEY_ESCAPE)) {
 
@@ -25,11 +26,13 @@ int main(void) {
 
         BeginDrawing();
         ClearBackground(BLACK);
-        drawPacMan(player, x, y);
+        drawPacMan(playerNarrow, x, y);
+        drawPacMan(playerWide, x, y);
         EndDrawing();
     }
 
-    UnloadTexture(player);
+    UnloadTexture(playerNarrow);
+    UnloadTexture(playerWide);
     CloseWindow();
 
     return 0;
